@@ -5,8 +5,7 @@ SBFlite is a stripped down version of [SBFspot](https://github.com/SBFspot/SBFsp
 Most components have been removed in order to keep it lightweight and simple to export it .
 
 ### **What it does**
-SBFspot connects via Bluetooth or Ethernet to your SMA® solar/battery inverter and reads Archive Day/Month Power generation, user/installer events and the actual (spot) data. The collected data is stored in a SQL database (SQLite/MySQL/MariaDB) or SMA® compatible .csv files.
-A separate service/daemon uploads the collected data to [PVoutput.org](https://pvoutput.org)
+SBFlite connects via Ethernet to your SMA® solar/battery inverter and reads actual (spot) data. The collected data is stored in a SQLite/MariaDB SQL database.
 
 ### **License**
 [Attribution - NonCommercial - ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)](https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode)
