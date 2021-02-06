@@ -36,6 +36,7 @@ char ips[num_inverters][16]= {
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <errno.h>
+#include <mariadb/mysql.h>
 
 #ifndef pi
 #define pi 3.141592653589793

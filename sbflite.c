@@ -252,9 +252,15 @@ int main(int argc, char *argv[])
     /*****************
      * Export to SQL *
      *****************/
-    // Initialisa C++ object
-    db_SQL_Export db = db_SQL_Export();
+
     // Open DataBase connection
+	MYSQL *m_dbHandle = mysql_init(NULL);
+    if (!mysql_real_connect(m_dbHandle, sqlHostname, sqlUsername, sqlPassword, sqlDatabase, 0, NULL, 0))
+	{
+	    printf("Could not open database [%s]!\n",sqlDatabase);
+        goto QUIT;  // Oh god. I shouldn't use GOTO statements. I know.
+	}
+
     db.open(sqlHostname, sqlUsername, sqlPassword, sqlDatabase);
     // if dbOpen(sqlHostname, sqlUsername, sqlpassword, sqldatabase??)  Maybe?
     if (db.isopen())
@@ -277,6 +283,7 @@ int main(int argc, char *argv[])
             // Cut newline char from time string
             tmpTime[strlen(tmpTime) - 1] = '\0';
 
+            // 
             db.type_label(Inverters);
             db.device_status(Inverters, spottime);
             db.spot_data(Inverters, spottime);
@@ -304,10 +311,9 @@ int main(int argc, char *argv[])
     {
         printf("Could not open connection to database!\n");
     }
-    * /
 
-        //SolarInverter -> Continue to get archive data
-        unsigned int idx;
+    //SolarInverter -> Continue to get archive data
+    unsigned int idx;
 
     /***************
     * Get Day Data *
@@ -349,100 +355,7 @@ int main(int argc, char *argv[])
         arch_time -= 86400;
     }*/
 
-    /*****************
-    * Get Month Data *
-    ******************/
-    /*
-	if (cfg.archMonths > 0)
-	{
-		getMonthDataOffset(Inverters); //Issues 115/130
-		arch_time = (0 == cfg.startdate) ? time(NULL) : cfg.startdate;
-		struct tm arch_tm;
-		memcpy(&arch_tm, gmtime(&arch_time), sizeof(arch_tm));
-
-		for (int count=0; count<cfg.archMonths; count++)
-		{
-			ArchiveMonthData(Inverters, &arch_tm);
-
-			if (VERBOSE_HIGH)
-			{
-				for (int inv = 0; Inverters[inv] != NULL && inv<MAX_INVERTERS; inv++)
-				{
-					printf("SUSyID: %d - SN: %lu\n", Inverters[inv]->SUSyID, Inverters[inv]->Serial);
-					for (unsigned int ii = 0; ii < sizeof(Inverters[inv]->monthData) / sizeof(MonthData); ii++)
-						if (Inverters[inv]->monthData[ii].datetime > 0)
-							printf("%s : %.3fkWh - %3.3fkWh\n", strfgmtime_t(cfg.DateFormat, Inverters[inv]->monthData[ii].datetime), (double)Inverters[inv]->monthData[ii].totalWh / 1000, (double)Inverters[inv]->monthData[ii].dayWh / 1000);
-					puts("======");
-				}
-			}
-
-			if (cfg.CSV_Export == 1)
-				ExportMonthDataToCSV(&cfg, Inverters);
-
-			#if defined(USE_SQLITE) || defined(USE_MYSQL)
-			if ((!cfg.nosql) && db.isopen())
-				db.month_data(Inverters);
-			#endif
-
-			//Go to previous month
-			if (--arch_tm.tm_mon < 0)
-			{
-				arch_tm.tm_mon = 11;
-				arch_tm.tm_year--;
-			}
-		}
-	}*/
-
-    /*****************
-    * Get Event Data *
-    ******************/
-    /*
-	posix_time::ptime tm_utc(posix_time::from_time_t((0 == cfg.startdate) ? time(NULL) : cfg.startdate));
-	//ptime tm_utc(posix_time::second_clock::universal_time());
-	gregorian::date dt_utc(tm_utc.date().year(), tm_utc.date().month(), 1);
-	std::string dt_range_csv = str(format("%d%02d") % dt_utc.year() % static_cast<short>(dt_utc.month()));
-
-	for (int m = 0; m < cfg.archEventMonths; m++)
-	{
-		if (VERBOSE_LOW) cout << "Reading events: " << to_simple_string(dt_utc) << endl;
-		//Get user level events
-		rc = ArchiveEventData(Inverters, dt_utc, UG_USER);
-		if (rc == E_EOF) break; // No more data (first event reached)
-		else if (rc != E_OK) std::cerr << "ArchiveEventData(user) returned an error: " << rc << endl;
-
-		//When logged in as installer, get installer level events
-		if (cfg.userGroup == UG_INSTALLER)
-		{
-			rc = ArchiveEventData(Inverters, dt_utc, UG_INSTALLER);
-			if (rc == E_EOF) break; // No more data (first event reached)
-			else if (rc != E_OK) std::cerr << "ArchiveEventData(installer) returned an error: " << rc << endl;
-		}
-
-		//Move to previous month
-		if (dt_utc.month() == 1)
-			dt_utc = gregorian::date(dt_utc.year() - 1, 12, 1);
-		else
-			dt_utc = gregorian::date(dt_utc.year(), dt_utc.month() - 1, 1);
-
-	}
-		if (rc == E_OK)
-	{
-		//Adjust start of range with 1 month
-		if (dt_utc.month() == 12)
-			dt_utc = gregorian::date(dt_utc.year() + 1, 1, 1);
-		else
-			dt_utc = gregorian::date(dt_utc.year(), dt_utc.month() + 1, 1);
-	}
-
-	if ((rc == E_OK) || (rc == E_EOF))
-	{
-		dt_range_csv = str(format("%d%02d-%s") % dt_utc.year() % static_cast<short>(dt_utc.month()) % dt_range_csv);
-
-		if ((cfg.CSV_Export == 1) && (cfg.archEventMonths > 0))
-			ExportEventsToCSV(&cfg, Inverters, dt_range_csv);
-	}
-    */
-
+QUIT:
     logoffMultigateDevices(Inverters);
     for (int inv = 0; Inverters[inv] != NULL && inv < MAX_INVERTERS; inv++)
         logoffSMAInverter(Inverters[inv]);
