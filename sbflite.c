@@ -257,59 +257,103 @@ int main(int argc, char *argv[])
 	MYSQL *m_dbHandle = mysql_init(NULL);
     if (!mysql_real_connect(m_dbHandle, sqlHostname, sqlUsername, sqlPassword, sqlDatabase, 0, NULL, 0))
 	{
-	    printf("Could not open database [%s]!\n",sqlDatabase);
+	    printf("Could not open database [%s]!\n", sqlDatabase);
         goto QUIT;  // Oh god. I shouldn't use GOTO statements. I know.
 	}
 
-    db.open(sqlHostname, sqlUsername, sqlPassword, sqlDatabase);
-    // if dbOpen(sqlHostname, sqlUsername, sqlpassword, sqldatabase??)  Maybe?
-    if (db.isopen())
+    printf("Successfully connected to database [%s]!", sqlDatabase);
+
+    for (int inv = 0; Inverters[inv] != NULL && inv < MAX_INVERTERS; inv++)
     {
-        for (int inv = 0; Inverters[inv] != NULL && inv < MAX_INVERTERS; inv++)
+        /** WARNING: 
+          * I was planning on using the time according to the inverter, 
+          * however since I also wanted to have a table which counted all wattages 
+          * from all inverters. I could not rely on the time given by the Inverter
+          **/
+        
+        // Time according to Inverter[inv]
+        //time_t spottime = Inverters[inv]->InverterDatetime;
+        // Or time according to server
+        time_t spottime = time(NULL);
+
+        char tmpTime[25];
+        strcpy(tmpTime, ctime(&spottime));
+        // Cut newline char from time string
+        tmpTime[strlen(tmpTime) - 1] = '\0';
+        //printf("Current time according to inverter %d: %s\n", inv, ctime(&datetime));
+
+        // Timestamp for SQL Database
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        struct tm *tm;
+        tm = localtime(&tv.tv_sec);
+        char timebuffer[100];
+        snprintf(timebuffer, sizeof(timebuffer), "[%04d-%02d-%02d %02d:%02d:%02d.%03d] ",
+             tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
+             tm->tm_hour, tm->tm_min, tm->tm_sec, (int)tv.tv_usec / 1000);
+        
+        char qry[1024];
+
+        // Update Inverters Table
+        sprintf(qry, "UPDATE spotData SET Name=%s,Type=%s,TimeStamp=%s,TotalPac=ld%,EToday=%ld,ETotal=%ld,OperatingTime=%f,FeedInTime=%f,Status=%s,GridRelay=%s,Temperature=%f WHERE Serial=%s",
+            Inverters[inv]->DeviceName, Inverters[inv]->DeviceType, strftime_t(spottime), Inverters[inv]->TotalPac, Inverters[inv]->EToday, Inverters[inv]->ETotal, (double)Inverters[inv]->OperationTime/3600,
+            );
+        sql << "UPDATE spotData SET" <<
+			",TotalPac=" << inverters[inv]->TotalPac <<
+			",EToday=" << inverters[inv]->EToday <<	
+			",ETotal=" << inverters[inv]->ETotal <<
+			",OperatingTime=" << (double)inverters[inv]->OperationTime/3600 <<
+			",FeedInTime=" << (double)inverters[inv]->FeedInTime/3600 <<
+			",Status=" << s_quoted(status_text(inverters[inv]->DeviceStatus)) <<
+			",GridRelay=" << s_quoted(status_text(inverters[inv]->GridRelayStatus)) <<
+			",Temperature=" << (float)inverters[inv]->Temperature/100 <<
+			" WHERE Serial=" << inverters[inv]->Serial;
+        
+        // Update spotData
+        // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
+        sprintf(qry, "INSERT INTO spotData VALUES(%s,);",Inverters[inv]->DeviceType);
+        inverters[inv]->DeviceName) <<
+			",Type=" << s_quoted(inverters[inv]->DeviceType
+
+		sql << "UPDATE spotData SET" <<
+            "Name=" inverters[inv]->DeviceName) <<
+			",Type=" << s_quoted(inverters[inv]->DeviceType <<
+			" TimeStamp=" << strftime_t(spottime) <<
+			",TotalPac=" << inverters[inv]->TotalPac <<
+			",EToday=" << inverters[inv]->EToday <<	
+			",ETotal=" << inverters[inv]->ETotal <<
+			",OperatingTime=" << (double)inverters[inv]->OperationTime/3600 <<
+			",FeedInTime=" << (double)inverters[inv]->FeedInTime/3600 <<
+			",Status=" << s_quoted(status_text(inverters[inv]->DeviceStatus)) <<
+			",GridRelay=" << s_quoted(status_text(inverters[inv]->GridRelayStatus)) <<
+			",Temperature=" << (float)inverters[inv]->Temperature/100 <<
+			" WHERE Serial=" << inverters[inv]->Serial;
+
+
+        sql.str("");
+        sql << "INSERT INTO SpotData VALUES(" << spottime << ',' << inv[i]->Serial << ','
+         << inv[i]->Pdc1 << ',' << inv[i]->Pdc2 << ',' 
+         < (float)inv[i]->Idc1 / 1000 << ','
+          << (float)inv[i]->Idc2 / 1000 << ',' << 
+          (float)inv[i]->Udc1 / 100 << ',' 
+          << (float)inv[i]->Udc2 / 100 << ',' 
+          << inv[i]->Pac1 << ',' 
+          << inv[i]->Pac2 << ',' 
+          << inv[i]->Pac3 << ',' 
+          << (float)inv[i]->Iac1 / 1000 << ',' 
+          << (float)inv[i]->Iac2 / 1000 << ','
+           << (float)inv[i]->Iac3 / 1000 << ',' 
+           << (float)inv[i]->Uac1 / 100 << ','
+            << (float)inv[i]->Uac2 / 100 << ',' 
+            << (float)inv[i]->Uac3 / 100 << ','
+              << (float)inv[i]->GridFreq / 100 << ',' 
+
+        if ((rc = exec_query(sql.str())) != SQL_OK)
         {
-            /** WARNING: 
-              * I was planning on using the time according to the inverter, 
-              * however since I also wanted to have a table which counted all wattages 
-              * from all inverters. I could not rely on the time according to the Inverter
-              **/
-            
-            // Time according to Inverter[inv]
-            //time_t spottime = Inverters[inv]->InverterDatetime;
-            // Or time according to server
-            time_t spottime = time(NULL);
-
-            char tmpTime[25];
-            strcpy(tmpTime, ctime(&spottime));
-            // Cut newline char from time string
-            tmpTime[strlen(tmpTime) - 1] = '\0';
-
-            // 
-            db.type_label(Inverters);
-            db.device_status(Inverters, spottime);
-            db.spot_data(Inverters, spottime);
-
-            time_t datetime = Inverters[inv]->InverterDatetime;
-            printf("Current time according to inverter %d: %s\n", inv, ctime(&datetime));
-
-            stringstream sql;
-            int rc = SQL_OK;
-
-            for (int i = 0; inv[i] != NULL && i < MAX_INVERTERS; i++)
-            {
-                sql.str("");
-                sql << "INSERT INTO SpotData VALUES(" << spottime << ',' << inv[i]->Serial << ',' << inv[i]->Pdc1 << ',' << inv[i]->Pdc2 << ',' << (float)inv[i]->Idc1 / 1000 << ',' << (float)inv[i]->Idc2 / 1000 << ',' << (float)inv[i]->Udc1 / 100 << ',' << (float)inv[i]->Udc2 / 100 << ',' << inv[i]->Pac1 << ',' << inv[i]->Pac2 << ',' << inv[i]->Pac3 << ',' << (float)inv[i]->Iac1 / 1000 << ',' << (float)inv[i]->Iac2 / 1000 << ',' << (float)inv[i]->Iac3 / 1000 << ',' << (float)inv[i]->Uac1 / 100 << ',' << (float)inv[i]->Uac2 / 100 << ',' << (float)inv[i]->Uac3 / 100 << ',' << inv[i]->EToday << ',' << inv[i]->ETotal << ',' << (float)inv[i]->GridFreq / 100 << ',' << (double)inv[i]->OperationTime / 3600 << ',' << (double)inv[i]->FeedInTime / 3600 << ',' << (float)inv[i]->BT_Signal << ',' << s_quoted(status_text(inv[i]->DeviceStatus)) << ',' << s_quoted(status_text(inv[i]->GridRelayStatus)) << ',' << (float)inv[i]->Temperature / 100 << ")";
-
-                if ((rc = exec_query(sql.str())) != SQL_OK)
-                {
-                    print_error("[spot_data]exec_query() returned", sql.str());
-                    break;
-                }
-            }
+            print_error("[spot_data]exec_query() returned", sql.str());
+            break;
         }
-    }
-    else
-    {
-        printf("Could not open connection to database!\n");
+        mysql_real_query(m_dbHandle, qry, strlen(qry));
     }
 
     //SolarInverter -> Continue to get archive data

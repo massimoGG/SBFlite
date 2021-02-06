@@ -13,7 +13,7 @@ I used SBFspot for a while, which successfully exported the data to my MySQL dat
 ### **Requirements**
 * A C compiler
 * libbluetooth-dev
-* [mariadb/mysql.h](https://downloads.mariadb.org/connector-odbc/) installed as/usr/lib/mariadb/mysql.h
+* [mariadb/mysql.h](https://downloads.mariadb.org/connector-odbc/) installed as /usr/lib/mariadb/mysql.h
 
 ### **Compilation**
 1. Modify the IP addresses of your SMA® solar/battery inverters and MariaDB username & password inside the sbflite.h file
