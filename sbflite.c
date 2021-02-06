@@ -249,25 +249,6 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (Inverters[0]->DevClass == SolarInverter)
-    {
-
-        /*
-		if ((cfg.CSV_Export == 1) && (cfg.nospot == 0))
-			ExportSpotDataToCSV(&cfg, Inverters);
-
-		if (cfg.wsl == 1)
-			ExportSpotDataToWSL(&cfg, Inverters);
-
-		if (cfg.s123 == S123_DATA)
-			ExportSpotDataTo123s(&cfg, Inverters);
-		if (cfg.s123 == S123_INFO)
-			ExportInformationDataTo123s(&cfg, Inverters);
-		if (cfg.s123 == S123_STATE)
-			ExportStateDataTo123s(&cfg, Inverters);
-        */
-    }
-
     /*****************
      * Export to SQL *
      *****************/

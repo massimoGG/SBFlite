@@ -4,7 +4,7 @@
 #define _SBFLITE_H_
 
 // Configuration
-#define SMApassword "722343"
+#define SMApassword ""
 #define SMAplantname "MyPlant"
 #define sqlHostname "192.168.1.10"
 #define sqlUsername "SBFuser"
