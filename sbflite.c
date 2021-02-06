@@ -296,8 +296,18 @@ int main(int argc, char *argv[])
 
         // Update Inverters Table
         sprintf(qry, "UPDATE Inverters SET Name=%s,Type=%s,TimeStamp=%s,TotalPac=ld%,EToday=%ld,ETotal=%ld,OperatingTime=%f,FeedInTime=%f,Status=%s,GridRelay=%s,Temperature=%f WHERE Serial=%s",
-            Inverters[inv]->DeviceName, Inverters[inv]->DeviceType, timebuffer, Inverters[inv]->TotalPac, Inverters[inv]->EToday, Inverters[inv]->ETotal, (double)Inverters[inv]->OperationTime/3600,
-            (double)Inverters[inv]->FeedInTime/3600,Inverters[inv]->DeviceStatus, Inverters[inv]->GridRelayStatus, (float)Inverters[inv]->Temperature/100, Inverters[inv]->Serial);
+            Inverters[inv]->DeviceName,
+            Inverters[inv]->DeviceType,
+            timebuffer, Inverters[inv]->TotalPac,
+            Inverters[inv]->EToday,
+            Inverters[inv]->ETotal,
+            (double)Inverters[inv]->OperationTime/3600,
+            (double)Inverters[inv]->FeedInTime/3600,
+            Inverters[inv]->DeviceStatus,
+            Inverters[inv]->GridRelayStatus,
+            (float)Inverters[inv]->Temperature/100,
+            Inverters[inv]->Serial
+        );
         
         // If not 0 -> Error, (in C 0=true)
         if (!mysql_real_query(m_dbHandle, qry, strlen(qry)))
@@ -310,7 +320,8 @@ int main(int argc, char *argv[])
         // Clear buffer
         memset(qry, 0, 1024);
         // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
-        sprintf(qry, "INSERT INTO spotData VALUES(%s,%s,%s,%s,%ld,%ld,%d,%d,%s,%d,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f);",
+        sprintf(qry, 
+            "INSERT INTO spotData VALUES(%s,%s,%s,%s,%ld,%ld,%d,%d,%s,%d,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f);",
             Inverters[inv]->DeviceName,
             Inverters[inv]->DeviceType,
             Inverters[inv]->Serial,
@@ -337,7 +348,7 @@ int main(int argc, char *argv[])
             (float)Inverters[inv]->Uac3/100,
             (float)Inverters[inv]->Iac1/1000,
             (float)Inverters[inv]->Iac2/1000,
-            (float)Inverters[inv]->Iac3/1000,
+            (float)Inverters[inv]->Iac3/1000
         );
 
         if (!mysql_real_query(m_dbHandle, qry, strlen(qry)))
