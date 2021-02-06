@@ -19,8 +19,12 @@ I used SBFspot for a while, which successfully exported the data to my MySQL dat
 1. Modify the IP addresses of your SMA® solar/battery inverters and MariaDB username & password inside the sbflite.h file
 
 2. Type `make` to compile the file.
+   You can also manually compile this by running:
+```bash
+gcc -o sbflite -lbluetooth -lmariadbclient sbflite.c 
+```
 
-3. Automate this with for example: crontab
+3. Automate the data retrieval with for example: crontab
 This example shows how to automaticly run this every 5 minutes
 ```bash
 */5 * * * * YOURUSERNAME  /path/to/sbflite
