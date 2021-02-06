@@ -24,7 +24,7 @@ I used SBFspot for a while, which successfully exported the data to my MySQL dat
 gcc -o sbflite -lbluetooth -lmariadbclient sbflite.c 
 ```
 
-3. Automate this with for example: crontab
+3. Automate the data retrieval with for example: crontab
 This example shows how to automaticly run this every 5 minutes
 ```bash
 */5 * * * * YOURUSERNAME  /path/to/sbflite
