@@ -295,65 +295,56 @@ int main(int argc, char *argv[])
         char qry[1024];
 
         // Update Inverters Table
-        sprintf(qry, "UPDATE spotData SET Name=%s,Type=%s,TimeStamp=%s,TotalPac=ld%,EToday=%ld,ETotal=%ld,OperatingTime=%f,FeedInTime=%f,Status=%s,GridRelay=%s,Temperature=%f WHERE Serial=%s",
-            Inverters[inv]->DeviceName, Inverters[inv]->DeviceType, strftime_t(spottime), Inverters[inv]->TotalPac, Inverters[inv]->EToday, Inverters[inv]->ETotal, (double)Inverters[inv]->OperationTime/3600,
-            );
-        sql << "UPDATE spotData SET" <<
-			",TotalPac=" << inverters[inv]->TotalPac <<
-			",EToday=" << inverters[inv]->EToday <<	
-			",ETotal=" << inverters[inv]->ETotal <<
-			",OperatingTime=" << (double)inverters[inv]->OperationTime/3600 <<
-			",FeedInTime=" << (double)inverters[inv]->FeedInTime/3600 <<
-			",Status=" << s_quoted(status_text(inverters[inv]->DeviceStatus)) <<
-			",GridRelay=" << s_quoted(status_text(inverters[inv]->GridRelayStatus)) <<
-			",Temperature=" << (float)inverters[inv]->Temperature/100 <<
-			" WHERE Serial=" << inverters[inv]->Serial;
+        sprintf(qry, "UPDATE Inverters SET Name=%s,Type=%s,TimeStamp=%s,TotalPac=ld%,EToday=%ld,ETotal=%ld,OperatingTime=%f,FeedInTime=%f,Status=%s,GridRelay=%s,Temperature=%f WHERE Serial=%s",
+            Inverters[inv]->DeviceName, Inverters[inv]->DeviceType, timebuffer, Inverters[inv]->TotalPac, Inverters[inv]->EToday, Inverters[inv]->ETotal, (double)Inverters[inv]->OperationTime/3600,
+            (double)Inverters[inv]->FeedInTime/3600,Inverters[inv]->DeviceStatus, Inverters[inv]->GridRelayStatus, (float)Inverters[inv]->Temperature/100, Inverters[inv]->Serial);
         
-        // Update spotData
-        // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
-        sprintf(qry, "INSERT INTO spotData VALUES(%s,);",Inverters[inv]->DeviceType);
-        inverters[inv]->DeviceName) <<
-			",Type=" << s_quoted(inverters[inv]->DeviceType
-
-		sql << "UPDATE spotData SET" <<
-            "Name=" inverters[inv]->DeviceName) <<
-			",Type=" << s_quoted(inverters[inv]->DeviceType <<
-			" TimeStamp=" << strftime_t(spottime) <<
-			",TotalPac=" << inverters[inv]->TotalPac <<
-			",EToday=" << inverters[inv]->EToday <<	
-			",ETotal=" << inverters[inv]->ETotal <<
-			",OperatingTime=" << (double)inverters[inv]->OperationTime/3600 <<
-			",FeedInTime=" << (double)inverters[inv]->FeedInTime/3600 <<
-			",Status=" << s_quoted(status_text(inverters[inv]->DeviceStatus)) <<
-			",GridRelay=" << s_quoted(status_text(inverters[inv]->GridRelayStatus)) <<
-			",Temperature=" << (float)inverters[inv]->Temperature/100 <<
-			" WHERE Serial=" << inverters[inv]->Serial;
-
-
-        sql.str("");
-        sql << "INSERT INTO SpotData VALUES(" << spottime << ',' << inv[i]->Serial << ','
-         << inv[i]->Pdc1 << ',' << inv[i]->Pdc2 << ',' 
-         < (float)inv[i]->Idc1 / 1000 << ','
-          << (float)inv[i]->Idc2 / 1000 << ',' << 
-          (float)inv[i]->Udc1 / 100 << ',' 
-          << (float)inv[i]->Udc2 / 100 << ',' 
-          << inv[i]->Pac1 << ',' 
-          << inv[i]->Pac2 << ',' 
-          << inv[i]->Pac3 << ',' 
-          << (float)inv[i]->Iac1 / 1000 << ',' 
-          << (float)inv[i]->Iac2 / 1000 << ','
-           << (float)inv[i]->Iac3 / 1000 << ',' 
-           << (float)inv[i]->Uac1 / 100 << ','
-            << (float)inv[i]->Uac2 / 100 << ',' 
-            << (float)inv[i]->Uac3 / 100 << ','
-              << (float)inv[i]->GridFreq / 100 << ',' 
-
-        if ((rc = exec_query(sql.str())) != SQL_OK)
+        // If not 0 -> Error, (in C 0=true)
+        if (!mysql_real_query(m_dbHandle, qry, strlen(qry)))
         {
-            print_error("[spot_data]exec_query() returned", sql.str());
+            printf("[Inverters]exec_query() returned: %s\n", qry);
             break;
         }
-        mysql_real_query(m_dbHandle, qry, strlen(qry));
+
+        // Update spotData
+        // Clear buffer
+        memset(qry, 0, 1024);
+        // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
+        sprintf(qry, "INSERT INTO spotData VALUES(%s,%s,%s,%s,%ld,%ld,%d,%d,%s,%d,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f);",
+            Inverters[inv]->DeviceName,
+            Inverters[inv]->DeviceType,
+            Inverters[inv]->Serial,
+            timebuffer,
+            Inverters[inv]->EToday,
+            Inverters[inv]->ETotal,
+            Inverters[inv]->OperationTime,
+            Inverters[inv]->FeedInTime,
+            Inverters[inv]->DeviceStatus,
+            Inverters[inv]->GridRelayStatus,
+            Inverters[inv]->Temperature,
+            Inverters[inv]->GridFreq/100,
+            Inverters[inv]->Pdc1,
+            Inverters[inv]->Pdc2,
+            (float)Inverters[inv]->Udc1/100,
+            (float)Inverters[inv]->Udc2/100,
+            (float)Inverters[inv]->Idc1/1000,
+            (float)Inverters[inv]->Idc2/1000,
+            Inverters[inv]->Pac1,
+            Inverters[inv]->Pac2,
+            Inverters[inv]->Pac3,
+            (float)Inverters[inv]->Uac1/100,
+            (float)Inverters[inv]->Uac2/100,
+            (float)Inverters[inv]->Uac3/100,
+            (float)Inverters[inv]->Iac1/1000,
+            (float)Inverters[inv]->Iac2/1000,
+            (float)Inverters[inv]->Iac3/1000,
+        );
+
+        if (!mysql_real_query(m_dbHandle, qry, strlen(qry)))
+        {
+            printf("[spotData]exec_query() returned: %s\n", qry);
+            break;
+        }
     }
 
     //SolarInverter -> Continue to get archive data
