@@ -1,6 +1,6 @@
 Connecting to Local Network...
 Initializing...
-SUSyID: 125 - SessionID: 835546949
+SUSyID: 125 - SessionID: 840515446
 Inverter IP address: 192.168.1.51
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -96,9 +96,9 @@ Received 178 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-INV_NAME    : 'SB 3000TL-21 671' Fri Feb  5 08:37:17 2021
-INV_CLASS   : 'UNKNOWN CLASS' Fri Feb  5 08:37:17 2021
-INV_TYPE    : 'UNKNOWN TYPE' Fri Feb  5 08:37:17 2021
+INV_NAME    : 'SB 3000TL-21 671' Sat Feb  6 08:27:42 2021
+INV_CLASS   : 'UNKNOWN CLASS' Sat Feb  6 08:27:42 2021
+INV_TYPE    : 'UNKNOWN TYPE' Sat Feb  6 08:27:42 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -109,9 +109,9 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-INV_NAME    : 'SB 4000TL-21 332' Fri Feb  5 08:34:14 2021
-INV_CLASS   : 'UNKNOWN CLASS' Fri Feb  5 08:34:14 2021
-INV_TYPE    : 'UNKNOWN TYPE' Fri Feb  5 08:34:14 2021
+INV_NAME    : 'SB 4000TL-21 332' Sat Feb  6 08:26:49 2021
+INV_CLASS   : 'UNKNOWN CLASS' Sat Feb  6 08:26:49 2021
+INV_TYPE    : 'UNKNOWN TYPE' Sat Feb  6 08:26:49 2021
 SUSyID: 138 - SN: 2130438671
 Device Name:      SB 3000TL-21 671
 Device Class:     UNKNOWN CLASS
@@ -167,9 +167,9 @@ Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
 SUSyID: 138 - SN: 2130438671
-Device Temperature: 0.0C
+Device Temperature: 30.9C
 SUSyID: 138 - SN: 2130440332
-Device Temperature: 0.0C
+Device Temperature: 29.9C
 getInverterData(8192)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -202,9 +202,9 @@ Received 142 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-INV_PACMAX1 : 3000 (W) Fri Feb  5 22:58:26 2021
-INV_PACMAX2 : 0 (W) Fri Feb  5 22:58:26 2021
-INV_PACMAX3 : 0 (W) Fri Feb  5 22:58:26 2021
+INV_PACMAX1 : 3000 (W) Sat Feb  6 16:02:43 2021
+INV_PACMAX2 : 0 (W) Sat Feb  6 16:02:43 2021
+INV_PACMAX3 : 0 (W) Sat Feb  6 16:02:43 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -215,9 +215,9 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-INV_PACMAX1 : 4000 (W) Fri Feb  5 22:58:28 2021
-INV_PACMAX2 : 0 (W) Fri Feb  5 22:58:28 2021
-INV_PACMAX3 : 0 (W) Fri Feb  5 22:58:28 2021
+INV_PACMAX1 : 4000 (W) Sat Feb  6 16:02:40 2021
+INV_PACMAX2 : 0 (W) Sat Feb  6 16:02:40 2021
+INV_PACMAX3 : 0 (W) Sat Feb  6 16:02:40 2021
 SUSyID: 138 - SN: 2130438671
 Pac max phase 1: 3000W
 Pac max phase 2: 0W
@@ -236,8 +236,8 @@ Received 90 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_ETOTAL : 8469.287 (kWh) Fri Feb  5 17:17:33 2021
-SPOT_ETODAY : 3.598 (kWh) Fri Feb  5 22:58:26 2021
+SPOT_ETOTAL : 8471.557 (kWh) Sat Feb  6 16:02:43 2021
+SPOT_ETODAY : 2.267 (kWh) Sat Feb  6 16:02:43 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -248,8 +248,8 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_ETOTAL : 21583.723 (kWh) Fri Feb  5 17:17:33 2021
-SPOT_ETODAY : 5.553 (kWh) Fri Feb  5 22:58:28 2021
+SPOT_ETOTAL : 21586.229 (kWh) Sat Feb  6 16:02:43 2021
+SPOT_ETODAY : 2.506 (kWh) Sat Feb  6 16:02:40 2021
 getInverterData(1024)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -260,8 +260,8 @@ Received 90 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_OPERTM : 16491.736 (h) Fri Feb  5 17:17:33 2021
-SPOT_FEEDTM : 15901.401 (h) Fri Feb  5 17:17:33 2021
+SPOT_OPERTM : 16499.177 (h) Sat Feb  6 16:02:43 2021
+SPOT_FEEDTM : 15908.805 (h) Sat Feb  6 16:02:43 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -272,20 +272,20 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_OPERTM : 16851.869 (h) Fri Feb  5 17:17:33 2021
-SPOT_FEEDTM : 16536.804 (h) Fri Feb  5 17:17:33 2021
+SPOT_OPERTM : 16859.314 (h) Sat Feb  6 16:02:43 2021
+SPOT_FEEDTM : 16544.281 (h) Sat Feb  6 16:02:43 2021
 SUSyID: 138 - SN: 2130438671
 Energy Production:
-	EToday: 3.598kWh
-	ETotal: 8469.287kWh
-	Operation Time: 16491.74h
-	Feed-In Time  : 15901.40h
+	EToday: 2.267kWh
+	ETotal: 8471.557kWh
+	Operation Time: 16499.18h
+	Feed-In Time  : 15908.81h
 SUSyID: 138 - SN: 2130440332
 Energy Production:
-	EToday: 5.553kWh
-	ETotal: 21583.723kWh
-	Operation Time: 16851.87h
-	Feed-In Time  : 16536.80h
+	EToday: 2.506kWh
+	ETotal: 21586.229kWh
+	Operation Time: 16859.31h
+	Feed-In Time  : 16544.28h
 getInverterData(2)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -296,8 +296,8 @@ Received 114 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_PDC1   : 0 (W) Fri Feb  5 22:58:27 2021
-SPOT_PDC2   : 0 (W) Fri Feb  5 22:58:27 2021
+SPOT_PDC1   : 32 (W) Sat Feb  6 16:02:43 2021
+SPOT_PDC2   : 28 (W) Sat Feb  6 16:02:43 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -308,8 +308,8 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_PDC1   : 0 (W) Fri Feb  5 22:58:29 2021
-SPOT_PDC2   : 0 (W) Fri Feb  5 22:58:29 2021
+SPOT_PDC1   : 37 (W) Sat Feb  6 16:02:43 2021
+SPOT_PDC2   : 24 (W) Sat Feb  6 16:02:43 2021
 getInverterData(4)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -320,10 +320,10 @@ Received 170 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_UDC1   : 0.00 (V) Fri Feb  5 22:58:27 2021
-SPOT_UDC2   : 0.00 (V) Fri Feb  5 22:58:27 2021
-SPOT_IDC1   : 0.000 (A) Fri Feb  5 22:58:27 2021
-SPOT_IDC2   : 0.000 (A) Fri Feb  5 22:58:27 2021
+SPOT_UDC1   : 337.11 (V) Sat Feb  6 16:02:43 2021
+SPOT_UDC2   : 190.46 (V) Sat Feb  6 16:02:43 2021
+SPOT_IDC1   : 0.097 (A) Sat Feb  6 16:02:43 2021
+SPOT_IDC2   : 0.149 (A) Sat Feb  6 16:02:43 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -334,20 +334,20 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_UDC1   : 0.00 (V) Fri Feb  5 22:58:29 2021
-SPOT_UDC2   : 0.00 (V) Fri Feb  5 22:58:29 2021
-SPOT_IDC1   : 0.000 (A) Fri Feb  5 22:58:29 2021
-SPOT_IDC2   : 0.000 (A) Fri Feb  5 22:58:29 2021
+SPOT_UDC1   : 347.46 (V) Sat Feb  6 16:02:43 2021
+SPOT_UDC2   : 197.99 (V) Sat Feb  6 16:02:43 2021
+SPOT_IDC1   : 0.109 (A) Sat Feb  6 16:02:43 2021
+SPOT_IDC2   : 0.126 (A) Sat Feb  6 16:02:43 2021
 SUSyID: 138 - SN: 2130438671
 DC Spot Data:
-	String 1 Pdc:   0.000kW - Udc:   0.00V - Idc:  0.000A
-	String 2 Pdc:   0.000kW - Udc:   0.00V - Idc:  0.000A
-	Calculated Total Pdc:   0.000kW
+	String 1 Pdc:   0.032kW - Udc: 337.11V - Idc:  0.097A
+	String 2 Pdc:   0.028kW - Udc: 190.46V - Idc:  0.149A
+	Calculated Total Pdc:   0.060kW
 SUSyID: 138 - SN: 2130440332
 DC Spot Data:
-	String 1 Pdc:   0.000kW - Udc:   0.00V - Idc:  0.000A
-	String 2 Pdc:   0.000kW - Udc:   0.00V - Idc:  0.000A
-	Calculated Total Pdc:   0.000kW
+	String 1 Pdc:   0.037kW - Udc: 347.46V - Idc:  0.109A
+	String 2 Pdc:   0.024kW - Udc: 197.99V - Idc:  0.126A
+	Calculated Total Pdc:   0.061kW
 getInverterData(8)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -358,9 +358,9 @@ Received 142 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_PAC1   : 0 (W) Fri Feb  5 22:58:27 2021
-SPOT_PAC2   : 0 (W) Fri Feb  5 22:58:27 2021
-SPOT_PAC3   : 0 (W) Fri Feb  5 22:58:27 2021
+SPOT_PAC1   : 18 (W) Sat Feb  6 16:02:44 2021
+SPOT_PAC2   : 0 (W) Sat Feb  6 16:02:44 2021
+SPOT_PAC3   : 0 (W) Sat Feb  6 16:02:44 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -371,9 +371,9 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_PAC1   : 0 (W) Fri Feb  5 22:58:29 2021
-SPOT_PAC2   : 0 (W) Fri Feb  5 22:58:29 2021
-SPOT_PAC3   : 0 (W) Fri Feb  5 22:58:29 2021
+SPOT_PAC1   : 16 (W) Sat Feb  6 16:02:43 2021
+SPOT_PAC2   : 0 (W) Sat Feb  6 16:02:43 2021
+SPOT_PAC3   : 0 (W) Sat Feb  6 16:02:43 2021
 getInverterData(16)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -385,12 +385,12 @@ Received 226 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_UAC1   : 0.00 (V) Fri Feb  5 22:58:27 2021
-SPOT_UAC2   : 0.00 (V) Fri Feb  5 22:58:27 2021
-SPOT_UAC3   : 0.00 (V) Fri Feb  5 22:58:27 2021
-SPOT_IAC1   : 0.000 (A) Fri Feb  5 22:58:27 2021
-SPOT_IAC2   : 0.000 (A) Fri Feb  5 22:58:27 2021
-SPOT_IAC3   : 0.000 (A) Fri Feb  5 22:58:27 2021
+SPOT_UAC1   : 229.06 (V) Sat Feb  6 16:02:44 2021
+SPOT_UAC2   : 0.00 (V) Sat Feb  6 16:02:44 2021
+SPOT_UAC3   : 0.00 (V) Sat Feb  6 16:02:44 2021
+SPOT_IAC1   : 0.078 (A) Sat Feb  6 16:02:44 2021
+SPOT_IAC2   : 0.000 (A) Sat Feb  6 16:02:44 2021
+SPOT_IAC3   : 0.000 (A) Sat Feb  6 16:02:44 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -401,12 +401,12 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_UAC1   : 0.00 (V) Fri Feb  5 22:58:29 2021
-SPOT_UAC2   : 0.00 (V) Fri Feb  5 22:58:29 2021
-SPOT_UAC3   : 0.00 (V) Fri Feb  5 22:58:29 2021
-SPOT_IAC1   : 0.000 (A) Fri Feb  5 22:58:29 2021
-SPOT_IAC2   : 0.000 (A) Fri Feb  5 22:58:29 2021
-SPOT_IAC3   : 0.000 (A) Fri Feb  5 22:58:29 2021
+SPOT_UAC1   : 229.50 (V) Sat Feb  6 16:02:43 2021
+SPOT_UAC2   : 0.00 (V) Sat Feb  6 16:02:43 2021
+SPOT_UAC3   : 0.00 (V) Sat Feb  6 16:02:43 2021
+SPOT_IAC1   : 0.073 (A) Sat Feb  6 16:02:43 2021
+SPOT_IAC2   : 0.000 (A) Sat Feb  6 16:02:43 2021
+SPOT_IAC3   : 0.000 (A) Sat Feb  6 16:02:43 2021
 getInverterData(256)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -417,7 +417,7 @@ Received 86 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_PACTOT : 0 (W) Fri Feb  5 22:58:27 2021
+SPOT_PACTOT : 18 (W) Sat Feb  6 16:02:44 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -428,21 +428,21 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_PACTOT : 0 (W) Fri Feb  5 22:58:29 2021
+SPOT_PACTOT : 16 (W) Sat Feb  6 16:02:44 2021
 SUSyID: 138 - SN: 2130438671
 AC Spot Data:
-	Phase 1 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
+	Phase 1 Pac :   0.018kW - Uac: 229.06V - Iac:  0.078A
 	Phase 2 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
 	Phase 3 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
-	Total Pac   :   0.000kW - Calculated Pac:   0.000kW
-	Efficiency  :    0.00%
+	Total Pac   :   0.018kW - Calculated Pac:   0.018kW
+	Efficiency  :   30.00%
 SUSyID: 138 - SN: 2130440332
 AC Spot Data:
-	Phase 1 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
+	Phase 1 Pac :   0.016kW - Uac: 229.50V - Iac:  0.073A
 	Phase 2 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
 	Phase 3 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
-	Total Pac   :   0.000kW - Calculated Pac:   0.000kW
-	Efficiency  :    0.00%
+	Total Pac   :   0.016kW - Calculated Pac:   0.016kW
+	Efficiency  :   26.23%
 getInverterData(32)
  58 Bytes sent to IP [192.168.1.51]
 ethGetPacket()
@@ -453,7 +453,7 @@ Received 86 bytes from IP [192.168.1.51]
 getInverterIndexBySerial()
 Looking up 138:2130438671
 Inverter[0] 138:2130438671
-SPOT_FREQ   : 0.00 (Hz) Fri Feb  5 22:58:27 2021
+SPOT_FREQ   : 50.02 (Hz) Sat Feb  6 16:02:44 2021
  58 Bytes sent to IP [192.168.1.52]
 ethGetPacket()
 select() returned 1
@@ -464,11 +464,11 @@ getInverterIndexBySerial()
 Looking up 138:2130440332
 Inverter[0] 138:2130438671
 Inverter[1] 138:2130440332
-SPOT_FREQ   : 0.00 (Hz) Fri Feb  5 22:58:29 2021
+SPOT_FREQ   : 50.02 (Hz) Sat Feb  6 16:02:44 2021
 SUSyID: 138 - SN: 2130438671
-Grid Freq. : 0.00Hz
+Grid Freq. : 50.02Hz
 SUSyID: 138 - SN: 2130440332
-Grid Freq. : 0.00Hz
+Grid Freq. : 50.02Hz
 SUSyID: 138 - SN: 2130438671
 Current Inverter Time: (null)
 Inverter Wake-Up Time: (null)
@@ -477,7 +477,7 @@ SUSyID: 138 - SN: 2130440332
 Current Inverter Time: (null)
 Inverter Wake-Up Time: (null)
 Inverter Sleep Time  : (null)
-logoffMultigateDevices()
+Current time: Sat Feb  6 16:02:43 2021!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Current time: Sat Feb  6 16:02:40 2021!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!logoffMultigateDevices()
 logoffSMAInverter()
  54 Bytes sent to IP [192.168.1.51]
 logoffSMAInverter()

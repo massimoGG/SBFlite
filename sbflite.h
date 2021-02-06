@@ -3,8 +3,21 @@
 #ifndef _SBFLITE_H_
 #define _SBFLITE_H_
 
-#pragma once
+// Configuration
+#define SMApassword "722343"
+#define SMAplantname "MyPlant"
+#define sqlHostname "192.168.1.10"
+#define sqlUsername "SBFuser"
+#define sqlPassword "!sbfpassword!"
+#define sqlDatabase "zonnepanelen"
 
+#define num_inverters 2
+char ips[num_inverters][16]= {
+    "192.168.1.51",
+    "192.168.1.52",
+};
+
+#pragma once
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -124,14 +137,10 @@ unsigned int cmdcode = 0;
 
 int packetposition = 0;
 unsigned short pcktID = 1;
-// Bluetooth
-#define BT_NUMRETRY 10
-#define BT_TIMEOUT  10
 int packetposition;
 int sock;
 struct sockaddr_in addr_in, addr_out;
 
-//#define maxpcktBufsize 520
 #define maxpcktBufsize COMMBUFSIZE
 BYTE pcktBuf[maxpcktBufsize];
 
