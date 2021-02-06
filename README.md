@@ -2,7 +2,7 @@
 
 ### **Introduction**
 SBFlite is a stripped down version of [SBFspot](https://github.com/SBFspot/SBFspot/).
-Most components have been removed in order to keep it lightweight and simple to export it .
+Most components have been removed in order to keep it simple to be kept in one C file.
 
 ### **What it does**
 SBFlite connects via Ethernet to your SMA® solar/battery inverter and reads actual (spot) data. The collected data is stored in a SQLite/MariaDB SQL database.
