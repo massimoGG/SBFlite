@@ -7,6 +7,25 @@ Most components have been removed in order to keep it simple to be kept in one C
 ### **What it does**
 SBFlite connects via Ethernet to your SMA® solar/battery inverter and reads actual (spot) data. The collected data is stored in a SQLite/MariaDB SQL database.
 
+### **Why**
+I used SBFspot for a while, which successfully exported the data to my MySQL database. Unfortunately this was slow and requested extra data which I didn't need causing it to be slow. When I had some free time, I decided to "redo"/convert this to a single C file while also removing all unnecessarry code (Archival code like Day Data, Month Data, Event Data). 
+
+### **Requirements**
+* A C compiler
+* libbluetooth-dev
+* A MySQL/MariaDB database
+
+### **Compilation**
+1. Modify the IP addresses of your SMA® solar/battery inverters and MySQL username & password inside the sbflite.h file
+
+2. Type `make` to compile the file.
+
+3. Automate this with for example: crontab
+This example shows how to automaticly run this every 5 minutes
+```bash
+*/5 * * * * YOURUSERNAME  /path/to/sbflite
+```
+
 ### **License**
 [Attribution - NonCommercial - ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)](https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode)
 
