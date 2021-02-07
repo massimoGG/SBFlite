@@ -2,7 +2,7 @@ CC = gcc
 
 source = sbflite.c
 output = sbflite
-LIBS   = bluetooth mariadbclient
+LIBS   = bluetooth mariadbclient pthread
 CFLAGS = 
 # -c -Wall -O2 -Wno-unused-local-typedefs
 

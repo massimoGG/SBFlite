@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
+            "args": ["-lbluetooth -lmariadbclient -lpthread"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

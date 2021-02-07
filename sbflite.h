@@ -6,12 +6,13 @@
 // Configuration
 #define SMApassword ""
 #define SMAplantname "MyPlant"
-#define sqlHostname "192.168.1.10"
-#define sqlUsername "SBFuser"
-#define sqlPassword "!sbfpassword!"
-#define sqlDatabase "zonnepanelen"
+#define sqlHostname "localhost"
+#define sqlUsername "SBFliteUser"
+#define sqlPassword ""
+#define sqlDatabase "sbflite"
 
 #define num_inverters 2
+const int MAX_INVERTERS = 2;
 char ips[num_inverters][16]= {
     "192.168.1.51",
     "192.168.1.52",
@@ -38,7 +39,7 @@ char ips[num_inverters][16]= {
 #include <sys/ioctl.h>
 #include <errno.h>
 #include <mariadb/mysql.h>
-
+#include <mariadb/mysqld_error.h>
 
 #ifndef pi
 #define pi 3.141592653589793
@@ -123,7 +124,6 @@ unsigned char CommBuf[COMMBUFSIZE];
 
 int MAX_CommBuf = 0;
 int MAX_pcktBuf = 0;
-const int MAX_INVERTERS = 2;
 int bytes_in_buffer = 0;
 int bufptr = 0;
 
@@ -183,12 +183,10 @@ typedef enum
 typedef struct
 {
     char DeviceName[33];    //32 bytes + terminating zero
-	unsigned char BTAddress[6];
 	char IPAddress[20];
 	unsigned short SUSyID;
     unsigned long Serial;
 	unsigned char NetID;
-	float BT_Signal;
     time_t InverterDatetime;
     time_t WakeupTime;
     time_t SleepTime;

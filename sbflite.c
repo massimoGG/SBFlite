@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 
     cfg.IP_Port = 9522;
     strcpy(cfg.SMA_Password, SMApassword);
+    strcpy(cfg.plantname, SMAplantname);
     cfg.userGroup = UG_USER;
 
     if (strlen(cfg.SMA_Password) == 0)
@@ -33,13 +34,12 @@ int main(int argc, char *argv[])
     }
     if (strlen(cfg.plantname) == 0)
     {
-        strncpy(cfg.plantname, SMAplantname, sizeof(cfg.plantname));
+        // Using default
+        strcpy(cfg.plantname, "MyPlant");
     }
 
     // Allocate memory for InverterData
     InverterData *Inverters[MAX_INVERTERS];
-    for (int i = 0; i < MAX_INVERTERS; Inverters[i++] = malloc(sizeof(InverterData)))
-        ;
 
     /*************************************************
      * ETHERNET SETUP
@@ -54,11 +54,11 @@ int main(int argc, char *argv[])
     }
 
     rc = ethInitConnectionMulti(Inverters, ips);
-
     if (rc != E_OK)
     {
         printf("Failed to initialize Speedwire connection.\n");
         ethClose();
+        freemem(Inverters);
         return rc;
     }
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
      *************************************************/
     if (logonSMAInverter(Inverters, cfg.userGroup, cfg.SMA_Password) != E_OK)
     {
-        snprintf(msg, sizeof(msg), "Logon failed. Check '%s' Password\n", cfg.userGroup == UG_USER ? "USER" : "INSTALLER");
+        snprintf(msg, sizeof(msg), "Logon failed. Check '%s' Password (%s)\n", cfg.userGroup == UG_USER ? "USER" : "INSTALLER", cfg.SMA_Password);
         printf("%s\n", msg);
         freemem(Inverters);
         return 1;
@@ -238,39 +238,151 @@ int main(int argc, char *argv[])
         for (int inv = 0; Inverters[inv] != NULL && inv < MAX_INVERTERS; inv++)
         {
             printf("SUSyID: %d - SN: %lu\n", Inverters[inv]->SUSyID, Inverters[inv]->Serial);
+            /*
             if (Inverters[inv]->InverterDatetime > 0)
-                printf("Current Inverter Time: %s\n"); //, strftime_t(cfg.DateTimeFormat, Inverters[inv]->InverterDatetime));
+                printf("Current Inverter Time: %s\n", strftime_t(cfg.DateTimeFormat, Inverters[inv]->InverterDatetime));
 
             if (Inverters[inv]->WakeupTime > 0)
-                printf("Inverter Wake-Up Time: %s\n"); //, strftime_t(cfg.DateTimeFormat, Inverters[inv]->WakeupTime));
+                printf("Inverter Wake-Up Time: %s\n", strftime_t(cfg.DateTimeFormat, Inverters[inv]->WakeupTime));
 
             if (Inverters[inv]->SleepTime > 0)
-                printf("Inverter Sleep Time  : %s\n"); //, strftime_t(cfg.DateTimeFormat, Inverters[inv]->SleepTime));
+                printf("Inverter Sleep Time  : %s\n", strftime_t(cfg.DateTimeFormat, Inverters[inv]->SleepTime));
+            */
         }
     }
 
     /*****************
      * Export to SQL *
      *****************/
-
     // Open DataBase connection
-	MYSQL *m_dbHandle = mysql_init(NULL);
-    if (!mysql_real_connect(m_dbHandle, sqlHostname, sqlUsername, sqlPassword, sqlDatabase, 0, NULL, 0))
+/*
+    struct timeval tv;
+    int inv = 0;
+    gettimeofday(&tv, NULL);
+    struct tm *tm;
+    tm = localtime(&tv.tv_sec);
+    char timebuffer[100];
+    snprintf(timebuffer, sizeof(timebuffer), "%04d-%02d-%02d %02d:%02d:%02d.%03d",
+         tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
+         tm->tm_hour, tm->tm_min, tm->tm_sec, (int)tv.tv_usec / 1000);
+
+    // Update Inverters Table
+    char qry[1024];
+    printf("\n<<<====== Begin of InverterStatus =======>>>\n");
+    printf("DeviceName: %s\n",Inverters[inv]->DeviceName);
+    printf("DeviceType: %s\n",Inverters[inv]->DeviceType);
+    printf("timebuffer: %s\n",timebuffer);
+    printf("TotalPac: %lu\n",Inverters[inv]->TotalPac);
+    printf("EToday: %lld\n",Inverters[inv]->EToday);
+    printf("ETotal: %lld\n",Inverters[inv]->ETotal);
+    printf("OperationTime: %f\n",(double)Inverters[inv]->OperationTime/3600);
+    printf("FeedInTime: %f\n",(double)Inverters[inv]->FeedInTime/3600);
+
+    // Two special snowflakes
+    printf("DeviceStatus: %lu\n",Inverters[inv]->DeviceStatus);
+    printf("GridRelayStatus: %lu\n",Inverters[inv]->GridRelayStatus);
+
+    printf("Temperature: %f\n",(double)Inverters[inv]->Temperature/100);
+    printf("Serial: %lu\n",Inverters[inv]->Serial);
+    printf("\n<<<====== End of InverterStatus =======>>>\n");
+    sprintf(qry, "UPDATE Inverters SET Name='%s',Type='%s',TimeStamp='%s',TotalPac=lu%,EToday=%lld,ETotal=%lld,OperatingTime=%f,FeedInTime=%f,Status=%d,GridRelay=%d,Temperature=%f WHERE Serial=%ul",
+        Inverters[inv]->DeviceName,
+        Inverters[inv]->DeviceType,
+        timebuffer,
+        Inverters[inv]->TotalPac,
+        Inverters[inv]->EToday,
+        Inverters[inv]->ETotal,
+        (double)Inverters[inv]->OperationTime/3600,
+        (double)Inverters[inv]->FeedInTime/3600,
+        Inverters[inv]->DeviceStatus,
+        Inverters[inv]->GridRelayStatus,
+        (double)Inverters[inv]->Temperature/100,
+        Inverters[inv]->Serial
+    );
+    printf("[Inverters] QUERRY -> %s\n",qry);
+
+    // Update spotData
+    printf("DeviceName: %s\n",Inverters[inv]->DeviceName);
+    printf("DeviceType: %s\n",Inverters[inv]->DeviceType);
+    printf("Serial: %ul\n",Inverters[inv]->Serial);
+    printf("Time: %s\n",timebuffer);
+    printf("EToday: %lld\n",Inverters[inv]->EToday);
+    printf("ETotal: %lld\n",Inverters[inv]->ETotal);
+    printf("OperationTime: %lld\n",Inverters[inv]->OperationTime/3600);
+    printf("FeedInTime: %lld\n",Inverters[inv]->FeedInTime/3600);
+    printf("DeviceStatus: %d\n",Inverters[inv]->DeviceStatus);
+    printf("GridRelayStatus: %d\n",Inverters[inv]->GridRelayStatus);
+    printf("Temperature: %f\n",(double)Inverters[inv]->Temperature/100);
+    printf("GridFreq: %f\n",(double)Inverters[inv]->GridFreq/100);
+    printf("Pdc1: %d\n",Inverters[inv]->Pdc1);
+    printf("Pdc2: %d\n",Inverters[inv]->Pdc2);
+    printf("Udc1: %f\n",(float)Inverters[inv]->Udc1/100);
+    printf("Udc2: %f\n",(float)Inverters[inv]->Udc2/100);
+    printf("Idc1: %f\n",(float)Inverters[inv]->Idc1/1000);
+    printf("Idc2: %f\n",(float)Inverters[inv]->Idc2/1000);
+    printf("Pac1: %d\n",Inverters[inv]->Pac1);
+    printf("%d\n",Inverters[inv]->Pac2);
+    printf("%d\n",Inverters[inv]->Pac3);
+    printf("Uac1: %f\n",(float)Inverters[inv]->Uac1/100);
+    printf("%f\n",(float)Inverters[inv]->Uac2/100);
+    printf("%f\n",(float)Inverters[inv]->Uac3/100);
+    printf("Iac1: %f\n",(float)Inverters[inv]->Iac1/1000);
+    printf("%f\n",(float)Inverters[inv]->Iac2/1000);
+    printf("%f\n",(float)Inverters[inv]->Iac3/1000);
+
+    // Clear buffer
+    memset(qry, 0, 1024);
+    // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
+    sprintf(qry, 
+        "INSERT INTO spotData VALUES(%s,%s,%ul,%s,%lld,%lld,%lld,%lld,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f);",
+        Inverters[inv]->DeviceName,
+        Inverters[inv]->DeviceType,
+        Inverters[inv]->Serial,
+        timebuffer,
+        Inverters[inv]->EToday,
+        Inverters[inv]->ETotal,
+        Inverters[inv]->OperationTime,
+        Inverters[inv]->FeedInTime,
+        Inverters[inv]->DeviceStatus,
+        Inverters[inv]->GridRelayStatus,
+        (double)Inverters[inv]->Temperature/100,
+        (double)Inverters[inv]->GridFreq/100,
+        Inverters[inv]->Pdc1,
+        Inverters[inv]->Pdc2,
+        (float)Inverters[inv]->Udc1/100,
+        (float)Inverters[inv]->Udc2/100,
+        (float)Inverters[inv]->Idc1/1000,
+        (float)Inverters[inv]->Idc2/1000,
+        Inverters[inv]->Pac1,
+        Inverters[inv]->Pac2,
+        Inverters[inv]->Pac3,
+        (float)Inverters[inv]->Uac1/100,
+        (float)Inverters[inv]->Uac2/100,
+        (float)Inverters[inv]->Uac3/100,
+        (float)Inverters[inv]->Iac1/1000,
+        (float)Inverters[inv]->Iac2/1000,
+        (float)Inverters[inv]->Iac3/1000
+    );
+    printf("[spotData] QUERRY -> %s\n",qry);
+*/
+    MYSQL *m_dbHandle = mysql_init(NULL);
+    if (!m_dbHandle)
+    {
+        printf("Could not allocate memory for MYSQL!\n");
+        goto QUIT;
+    }
+
+    printf("Connecting to database [%s:%s] with username [%s] and password [%s]\n",sqlHostname, sqlDatabase, sqlUsername, sqlPassword);
+    if ((m_dbHandle = mysql_real_connect(m_dbHandle, sqlHostname, sqlUsername, sqlPassword, sqlDatabase, 0, NULL, 0)) == NULL)
 	{
 	    printf("Could not open database [%s]!\n", sqlDatabase);
         goto QUIT;  // Oh god. I shouldn't use GOTO statements. I know.
 	}
 
-    printf("Successfully connected to database [%s]!", sqlDatabase);
+    printf("Successfully connected to database [%s]!\n", sqlDatabase);
 
     for (int inv = 0; Inverters[inv] != NULL && inv < MAX_INVERTERS; inv++)
     {
-        /** WARNING: 
-          * I was planning on using the time according to the inverter, 
-          * however since I also wanted to have a table which counted all wattages 
-          * from all inverters. I could not rely on the time given by the Inverter
-          **/
-        
         // Time according to Inverter[inv]
         //time_t spottime = Inverters[inv]->InverterDatetime;
         // Or time according to server
@@ -280,7 +392,7 @@ int main(int argc, char *argv[])
         strcpy(tmpTime, ctime(&spottime));
         // Cut newline char from time string
         tmpTime[strlen(tmpTime) - 1] = '\0';
-        //printf("Current time according to inverter %d: %s\n", inv, ctime(&datetime));
+        //printf("Current time according to inverter %d: %s\n", inv, ctime(&spottime));
 
         // Timestamp for SQL Database
         struct timeval tv;
@@ -288,17 +400,17 @@ int main(int argc, char *argv[])
         struct tm *tm;
         tm = localtime(&tv.tv_sec);
         char timebuffer[100];
-        snprintf(timebuffer, sizeof(timebuffer), "[%04d-%02d-%02d %02d:%02d:%02d.%03d] ",
+        snprintf(timebuffer, sizeof(timebuffer), "%04d-%02d-%02d %02d:%02d:%02d.%03d",
              tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
              tm->tm_hour, tm->tm_min, tm->tm_sec, (int)tv.tv_usec / 1000);
-        
-        char qry[1024];
 
+        char qry[1024];
         // Update Inverters Table
-        sprintf(qry, "UPDATE Inverters SET Name=%s,Type=%s,TimeStamp=%s,TotalPac=ld%,EToday=%ld,ETotal=%ld,OperatingTime=%f,FeedInTime=%f,Status=%s,GridRelay=%s,Temperature=%f WHERE Serial=%s",
+        sprintf(qry, "UPDATE Inverters SET Name='%s',Type='%s',TimeStamp='%s',TotalPac=%lu,EToday=%lld,ETotal=%lld,OperatingTime=%f,FeedInTime=%f,Status=%d,GridRelay=%d,Temperature=%f WHERE Serial=%ld",
             Inverters[inv]->DeviceName,
             Inverters[inv]->DeviceType,
-            timebuffer, Inverters[inv]->TotalPac,
+            timebuffer,
+            Inverters[inv]->TotalPac,
             Inverters[inv]->EToday,
             Inverters[inv]->ETotal,
             (double)Inverters[inv]->OperationTime/3600,
@@ -308,20 +420,24 @@ int main(int argc, char *argv[])
             (float)Inverters[inv]->Temperature/100,
             Inverters[inv]->Serial
         );
+        printf("[Inverters] Query: \"%s\"\n",qry);
         
         // If not 0 -> Error, (in C 0=true)
-        if (!mysql_real_query(m_dbHandle, qry, strlen(qry)))
+        int res;    // returns 1 on error
+        //if ((res = mysql_real_query(m_dbHandle, qry, strlen(qry))) != 0)
+        if ((res = mysql_query(m_dbHandle, qry)) != 0)
         {
-            printf("[Inverters]exec_query() returned: %s\n", qry);
+            printf("[Inverters]exec_query() returned error (%d): %s\n", mysql_errno(m_dbHandle), qry);
             break;
-        }
+        } else
+            printf("[Inverters]mysql_real_query() executed successfully.\n");
 
         // Update spotData
         // Clear buffer
         memset(qry, 0, 1024);
         // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
         sprintf(qry, 
-            "INSERT INTO spotData VALUES(%s,%s,%s,%s,%ld,%ld,%d,%d,%s,%d,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f);",
+            "INSERT INTO spotData VALUES('%s','%s',%lu,'%s',%lld,%lld,%lld,%lld,%d,%d,%f,%f,%lu,%lu,%f,%f,%f,%f,%lu,%lu,%lu,%f,%f,%f,%f,%f,%f)",
             Inverters[inv]->DeviceName,
             Inverters[inv]->DeviceType,
             Inverters[inv]->Serial,
@@ -332,8 +448,8 @@ int main(int argc, char *argv[])
             Inverters[inv]->FeedInTime,
             Inverters[inv]->DeviceStatus,
             Inverters[inv]->GridRelayStatus,
-            Inverters[inv]->Temperature,
-            Inverters[inv]->GridFreq/100,
+            (double)Inverters[inv]->Temperature/100,
+            (double)Inverters[inv]->GridFreq/100,
             Inverters[inv]->Pdc1,
             Inverters[inv]->Pdc2,
             (float)Inverters[inv]->Udc1/100,
@@ -350,56 +466,20 @@ int main(int argc, char *argv[])
             (float)Inverters[inv]->Iac2/1000,
             (float)Inverters[inv]->Iac3/1000
         );
+        printf("[spotData] Query: \"%s\"\n",qry);
 
-        if (!mysql_real_query(m_dbHandle, qry, strlen(qry)))
+        if ((res = mysql_query(m_dbHandle, qry)) != 0)
         {
-            printf("[spotData]exec_query() returned: %s\n", qry);
+            printf("[spotData]exec_query() returned error (%d): %s\n", mysql_errno(m_dbHandle),qry);
             break;
-        }
+        } else
+            printf("[Inverters]mysql_real_query() executed successfully.\n");
     }
 
-    //SolarInverter -> Continue to get archive data
-    unsigned int idx;
+    // Close connection to database
+    puts("Closing connection to database.");
+    mysql_close(m_dbHandle);
 
-    /***************
-    * Get Day Data *
-    ****************/
-    /*
-    time_t arch_time = (0 == cfg.startdate) ? time(NULL) : cfg.startdate;
-
-    for (int count=0; count<cfg.archDays; count++)
-    {
-        if ((rc = ArchiveDayData(Inverters, arch_time)) != E_OK)
-        {
-            if (rc != E_ARCHNODATA)
-		        std::cerr << "ArchiveDayData returned an error: " << rc << std::endl;
-        }
-        else
-        {
-            for (int inv=0; Inverters[inv]!=NULL && inv<MAX_INVERTERS; inv++)
-            {
-                printf("SUSyID: %d - SN: %lu\n", Inverters[inv]->SUSyID, Inverters[inv]->Serial);
-                for (idx=0; idx<sizeof(Inverters[inv]->dayData)/sizeof(DayData); idx++)
-                    if (Inverters[inv]->dayData[idx].datetime > 0)
-					{
-                        printf("%s : %.3fkWh - %3.3fW\n", strftime_t(cfg.DateTimeFormat, Inverters[inv]->dayData[idx].datetime), (double)Inverters[inv]->dayData[idx].totalWh/1000, (double)Inverters[inv]->dayData[idx].watt);
-						fflush(stdout);
-					}
-                puts("======");
-            }
-
-            if (cfg.CSV_Export == 1)
-                ExportDayDataToCSV(&cfg, Inverters);
-
-			#if defined(USE_SQLITE) || defined(USE_MYSQL)
-			if ((!cfg.nosql) && db.isopen())
-				db.day_data(Inverters);
-			#endif
-        }
-
-        //Goto previous day
-        arch_time -= 86400;
-    }*/
 
 QUIT:
     logoffMultigateDevices(Inverters);
@@ -604,8 +684,6 @@ int getInverterData(InverterData *devList[], enum getInverterDataType type)
 
     for (int i = 0; devList[i] != NULL && i < MAX_INVERTERS; i++)
     {
-        //do
-        //{
         pcktID++;
         writePacketHeader(pcktBuf, 0x01, addr_unknown);
         if (devList[i]->SUSyID == SID_SB240)
@@ -617,8 +695,6 @@ int getInverterData(InverterData *devList[], enum getInverterDataType type)
         writeLong(pcktBuf, last);
         writePacketTrailer(pcktBuf);
         writePacketLength(pcktBuf);
-        //}
-        //while (0);
 
         ethSend(pcktBuf, devList[i]->IPAddress);
 
@@ -648,6 +724,7 @@ int getInverterData(InverterData *devList[], enum getInverterDataType type)
                         uint32_t code = ((uint32_t)get_long(pcktBuf + ii));
                         LriDef lri = (LriDef)(code & 0x00FFFF00);
                         uint32_t cls = code & 0xFF;
+                        printf("[getInverterData]Code: %ul; lre: %ul; cls: %ul\n",cls);
                         unsigned char dataType = code >> 24;
                         time_t datetime = (time_t)get_long(pcktBuf + ii + 4);
 
@@ -909,7 +986,8 @@ int getInverterData(InverterData *devList[], enum getInverterDataType type)
                                 if (status == 1)
                                 {
                                     // TODO: Remove this. I'm too lazy to implement getDesc()
-                                    strncpy(devList[inv]->DeviceType, "UNKNOWN TYPE", sizeof(devList[inv]->DeviceType));
+                                    memset(devList[inv]->DeviceType, 0, sizeof(devList[inv]->DeviceType));
+                                    strcpy(devList[inv]->DeviceType, "UNKNOWN TYPE");
 
                                     /*
 										string devtype = getDesc(attribute);
@@ -944,7 +1022,8 @@ int getInverterData(InverterData *devList[], enum getInverterDataType type)
                                 {
                                     devList[inv]->DevClass = (DEVICECLASS)attribute;
                                     // TODO: Remove this. I'm too lazy to implement getDesc()
-                                    strncpy(devList[inv]->DeviceClass, "UNKNOWN CLASS", sizeof(devList[inv]->DeviceClass));
+                                    memset(devList[inv]->DeviceClass, 0, sizeof(devList[inv]->DeviceClass));
+                                    strcpy(devList[inv]->DeviceClass, "UNKNOWN CLASS");
                                     /*
 										string devclass = getDesc(attribute);
 										if (!devclass.empty())
@@ -1091,7 +1170,6 @@ void resetInverterData(InverterData *inv)
     inv->BatDiagTotAhOut = 0;
     inv->BatTmpVal = 0;
     inv->BatVol = 0;
-    inv->BT_Signal = 0;
     inv->calEfficiency = 0;
     inv->calPacTot = 0;
     inv->calPdcTot = 0;
@@ -1374,8 +1452,6 @@ E_SBFSPOT logoffMultigateDevices(InverterData *inverters[])
                 InverterData *psb = inverters[sb240];
                 if ((psb->SUSyID == SID_SB240) && (psb->multigateID == mg))
                 {
-                    //do
-                    //{
                     pcktID++;
                     writePacketHeader(pcktBuf, 0, NULL);
                     writePacket(pcktBuf, 0x08, 0xE0, 0x0300, psb->SUSyID, psb->Serial);
@@ -1383,8 +1459,6 @@ E_SBFSPOT logoffMultigateDevices(InverterData *inverters[])
                     writeLong(pcktBuf, 0xFFFFFFFF);
                     writePacketTrailer(pcktBuf);
                     writePacketLength(pcktBuf);
-                    //}
-                    //while (!isCrcValid(pcktBuf[packetposition-3], pcktBuf[packetposition-2]));
 
                     ethSend(pcktBuf, psb->IPAddress);
 
