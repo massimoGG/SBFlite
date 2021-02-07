@@ -255,116 +255,6 @@ int main(int argc, char *argv[])
      * Export to SQL *
      *****************/
     // Open DataBase connection
-/*
-    struct timeval tv;
-    int inv = 0;
-    gettimeofday(&tv, NULL);
-    struct tm *tm;
-    tm = localtime(&tv.tv_sec);
-    char timebuffer[100];
-    snprintf(timebuffer, sizeof(timebuffer), "%04d-%02d-%02d %02d:%02d:%02d.%03d",
-         tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
-         tm->tm_hour, tm->tm_min, tm->tm_sec, (int)tv.tv_usec / 1000);
-
-    // Update Inverters Table
-    char qry[1024];
-    printf("\n<<<====== Begin of InverterStatus =======>>>\n");
-    printf("DeviceName: %s\n",Inverters[inv]->DeviceName);
-    printf("DeviceType: %s\n",Inverters[inv]->DeviceType);
-    printf("timebuffer: %s\n",timebuffer);
-    printf("TotalPac: %lu\n",Inverters[inv]->TotalPac);
-    printf("EToday: %lld\n",Inverters[inv]->EToday);
-    printf("ETotal: %lld\n",Inverters[inv]->ETotal);
-    printf("OperationTime: %f\n",(double)Inverters[inv]->OperationTime/3600);
-    printf("FeedInTime: %f\n",(double)Inverters[inv]->FeedInTime/3600);
-
-    // Two special snowflakes
-    printf("DeviceStatus: %lu\n",Inverters[inv]->DeviceStatus);
-    printf("GridRelayStatus: %lu\n",Inverters[inv]->GridRelayStatus);
-
-    printf("Temperature: %f\n",(double)Inverters[inv]->Temperature/100);
-    printf("Serial: %lu\n",Inverters[inv]->Serial);
-    printf("\n<<<====== End of InverterStatus =======>>>\n");
-    sprintf(qry, "UPDATE Inverters SET Name='%s',Type='%s',TimeStamp='%s',TotalPac=lu%,EToday=%lld,ETotal=%lld,OperatingTime=%f,FeedInTime=%f,Status=%d,GridRelay=%d,Temperature=%f WHERE Serial=%ul",
-        Inverters[inv]->DeviceName,
-        Inverters[inv]->DeviceType,
-        timebuffer,
-        Inverters[inv]->TotalPac,
-        Inverters[inv]->EToday,
-        Inverters[inv]->ETotal,
-        (double)Inverters[inv]->OperationTime/3600,
-        (double)Inverters[inv]->FeedInTime/3600,
-        Inverters[inv]->DeviceStatus,
-        Inverters[inv]->GridRelayStatus,
-        (double)Inverters[inv]->Temperature/100,
-        Inverters[inv]->Serial
-    );
-    printf("[Inverters] QUERRY -> %s\n",qry);
-
-    // Update spotData
-    printf("DeviceName: %s\n",Inverters[inv]->DeviceName);
-    printf("DeviceType: %s\n",Inverters[inv]->DeviceType);
-    printf("Serial: %ul\n",Inverters[inv]->Serial);
-    printf("Time: %s\n",timebuffer);
-    printf("EToday: %lld\n",Inverters[inv]->EToday);
-    printf("ETotal: %lld\n",Inverters[inv]->ETotal);
-    printf("OperationTime: %lld\n",Inverters[inv]->OperationTime/3600);
-    printf("FeedInTime: %lld\n",Inverters[inv]->FeedInTime/3600);
-    printf("DeviceStatus: %d\n",Inverters[inv]->DeviceStatus);
-    printf("GridRelayStatus: %d\n",Inverters[inv]->GridRelayStatus);
-    printf("Temperature: %f\n",(double)Inverters[inv]->Temperature/100);
-    printf("GridFreq: %f\n",(double)Inverters[inv]->GridFreq/100);
-    printf("Pdc1: %d\n",Inverters[inv]->Pdc1);
-    printf("Pdc2: %d\n",Inverters[inv]->Pdc2);
-    printf("Udc1: %f\n",(float)Inverters[inv]->Udc1/100);
-    printf("Udc2: %f\n",(float)Inverters[inv]->Udc2/100);
-    printf("Idc1: %f\n",(float)Inverters[inv]->Idc1/1000);
-    printf("Idc2: %f\n",(float)Inverters[inv]->Idc2/1000);
-    printf("Pac1: %d\n",Inverters[inv]->Pac1);
-    printf("%d\n",Inverters[inv]->Pac2);
-    printf("%d\n",Inverters[inv]->Pac3);
-    printf("Uac1: %f\n",(float)Inverters[inv]->Uac1/100);
-    printf("%f\n",(float)Inverters[inv]->Uac2/100);
-    printf("%f\n",(float)Inverters[inv]->Uac3/100);
-    printf("Iac1: %f\n",(float)Inverters[inv]->Iac1/1000);
-    printf("%f\n",(float)Inverters[inv]->Iac2/1000);
-    printf("%f\n",(float)Inverters[inv]->Iac3/1000);
-
-    // Clear buffer
-    memset(qry, 0, 1024);
-    // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
-    sprintf(qry, 
-        "INSERT INTO spotData VALUES(%s,%s,%ul,%s,%lld,%lld,%lld,%lld,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f);",
-        Inverters[inv]->DeviceName,
-        Inverters[inv]->DeviceType,
-        Inverters[inv]->Serial,
-        timebuffer,
-        Inverters[inv]->EToday,
-        Inverters[inv]->ETotal,
-        Inverters[inv]->OperationTime,
-        Inverters[inv]->FeedInTime,
-        Inverters[inv]->DeviceStatus,
-        Inverters[inv]->GridRelayStatus,
-        (double)Inverters[inv]->Temperature/100,
-        (double)Inverters[inv]->GridFreq/100,
-        Inverters[inv]->Pdc1,
-        Inverters[inv]->Pdc2,
-        (float)Inverters[inv]->Udc1/100,
-        (float)Inverters[inv]->Udc2/100,
-        (float)Inverters[inv]->Idc1/1000,
-        (float)Inverters[inv]->Idc2/1000,
-        Inverters[inv]->Pac1,
-        Inverters[inv]->Pac2,
-        Inverters[inv]->Pac3,
-        (float)Inverters[inv]->Uac1/100,
-        (float)Inverters[inv]->Uac2/100,
-        (float)Inverters[inv]->Uac3/100,
-        (float)Inverters[inv]->Iac1/1000,
-        (float)Inverters[inv]->Iac2/1000,
-        (float)Inverters[inv]->Iac3/1000
-    );
-    printf("[spotData] QUERRY -> %s\n",qry);
-*/
     MYSQL *m_dbHandle = mysql_init(NULL);
     if (!m_dbHandle)
     {
@@ -397,8 +287,11 @@ int main(int argc, char *argv[])
         // Timestamp for SQL Database
         struct timeval tv;
         gettimeofday(&tv, NULL);
-        struct tm *tm;
-        tm = localtime(&tv.tv_sec);
+        // Apply own timezone
+        time_t rawtime;
+        time(&rawtime);
+        struct tm *tm = gmtime(&rawtime);
+
         char timebuffer[100];
         snprintf(timebuffer, sizeof(timebuffer), "%04d-%02d-%02d %02d:%02d:%02d.%03d",
              tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
@@ -435,11 +328,10 @@ int main(int argc, char *argv[])
         // Update spotData
         // Clear buffer
         memset(qry, 0, 1024);
-        // Name, Type, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
+        // Name, Serial, TimeStamp, EToday, ETotal, OperatingTime, FeedInTime, Status, GridRelay, Temperature, GridFreq, Pdc1, Pdc2, Udc1, Udc2, Idc1, Idc2, Pac1, Pac2, Udc1, Udc2, Idc1, Idc2
         sprintf(qry, 
-            "INSERT INTO spotData VALUES('%s','%s',%lu,'%s',%lld,%lld,%lld,%lld,%d,%d,%f,%f,%lu,%lu,%f,%f,%f,%f,%lu,%lu,%lu,%f,%f,%f,%f,%f,%f)",
+            "INSERT INTO spotData VALUES('%s',%lu,'%s',%lld,%lld,%lld,%lld,%d,%d,%f,%f,%lu,%lu,%f,%f,%f,%f,%lu,%lu,%lu,%f,%f,%f,%f,%f,%f)",
             Inverters[inv]->DeviceName,
-            Inverters[inv]->DeviceType,
             Inverters[inv]->Serial,
             timebuffer,
             Inverters[inv]->EToday,

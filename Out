@@ -1,0 +1,552 @@
+Connecting to Local Network...
+Initializing...
+SUSyID: 125 - SessionID: 908799151
+Inverter IP address: 192.168.1.51
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+MAX_CommBuf is now 98 bytes
+Received 98 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+Inverter replied: 192.168.1.51 SUSyID: 138 - Serial: 2130438671
+logoffSMAInverter()
+ 54 Bytes sent to IP [192.168.1.51]
+Inverter IP address: 192.168.1.52
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+Inverter replied: 192.168.1.52 SUSyID: 138 - Serial: 2130440332
+logoffSMAInverter()
+ 54 Bytes sent to IP [192.168.1.52]
+
+*************************************************
+* SPEEDWIRE CONNECTION INITIALISED!             *
+*************************************************
+
+logonSMAInverter()
+Logining into 192.168.1.51
+ 78 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 78 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+Logining into 192.168.1.52
+ 78 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 78 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+Logon OK
+getInverterData(-2147483648)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 58 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 58 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+getInverterData(2048)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_SWVER   : '02.81.01.R' Sat Feb  6 21:00:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_SWVER   : '02.81.01.R' Sat Feb  6 21:01:16 2021
+getInverterData(512)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+MAX_CommBuf is now 178 bytes
+Received 178 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_NAME    : 'SB 3000TL-21 671' Sun Feb  7 09:52:50 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_CLASS   : 'UNKNOWN CLASS' Sun Feb  7 09:52:50 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_TYPE    : 'UNKNOWN TYPE' Sun Feb  7 09:52:50 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 178 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_NAME    : 'SB 4000TL-21 332' Sun Feb  7 09:46:02 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_CLASS   : 'UNKNOWN CLASS' Sun Feb  7 09:46:02 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_TYPE    : 'UNKNOWN TYPE' Sun Feb  7 09:46:02 2021
+SUSyID: 138 - SN: 2130438671
+Device Name:      SB 3000TL-21 671
+Device Class:     UNKNOWN CLASS
+Device Type:      UNKNOWN TYPE
+Software Version: 02.81.01.R
+Serial number:    2130438671
+SUSyID: 138 - SN: 2130440332
+Device Name:      SB 4000TL-21 332
+Device Class:     UNKNOWN CLASS
+Device Type:      UNKNOWN TYPE
+Software Version: 02.81.01.R
+Serial number:    2130440332
+getInverterData(4096)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SUSyID: 138 - SN: 2130438671
+SUSyID: 138 - SN: 2130440332
+getInverterData(65536)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 86 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 86 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SUSyID: 138 - SN: 2130438671
+Device Temperature: 26.5C
+SUSyID: 138 - SN: 2130440332
+Device Temperature: 25.7C
+getInverterData(8192)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 98 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SUSyID: 138 - SN: 2130438671
+SUSyID: 138 - SN: 2130440332
+getInverterData(64)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 142 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_PACMAX1 : 3000 (W) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_PACMAX2 : 0 (W) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_PACMAX3 : 0 (W) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 142 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_PACMAX1 : 4000 (W) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_PACMAX2 : 0 (W) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+INV_PACMAX3 : 0 (W) Sun Feb  7 14:12:11 2021
+SUSyID: 138 - SN: 2130438671
+Pac max phase 1: 3000W
+Pac max phase 2: 0W
+Pac max phase 3: 0W
+SUSyID: 138 - SN: 2130440332
+Pac max phase 1: 4000W
+Pac max phase 2: 0W
+Pac max phase 3: 0W
+getInverterData(1)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 90 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_ETOTAL : 8471.600 (kWh) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_ETODAY : 0.039 (kWh) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 90 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_ETOTAL : 21586.288 (kWh) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_ETODAY : 0.055 (kWh) Sun Feb  7 14:12:11 2021
+getInverterData(1024)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 90 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_OPERTM : 16503.723 (h) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_FEEDTM : 15910.776 (h) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 90 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_OPERTM : 16863.972 (h) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_FEEDTM : 16546.408 (h) Sun Feb  7 14:12:11 2021
+SUSyID: 138 - SN: 2130438671
+Energy Production:
+	EToday: 0.039kWh
+	ETotal: 8471.600kWh
+	Operation Time: 16503.72h
+	Feed-In Time  : 15910.78h
+SUSyID: 138 - SN: 2130440332
+Energy Production:
+	EToday: 0.055kWh
+	ETotal: 21586.288kWh
+	Operation Time: 16863.97h
+	Feed-In Time  : 16546.41h
+getInverterData(2)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 114 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PDC1   : 0 (W) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 2l; lre: 3476685760l; cls: 0l
+SPOT_PDC2   : 0 (W) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 114 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PDC1   : 0 (W) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 2l; lre: 3476685760l; cls: 8l
+SPOT_PDC2   : 0 (W) Sun Feb  7 14:12:11 2021
+getInverterData(4)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 170 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UDC1   : 258.98 (V) Sun Feb  7 14:12:13 2021
+[getInverterData]Code: 2l; lre: 3476685760l; cls: 0l
+SPOT_UDC2   : 175.67 (V) Sun Feb  7 14:12:13 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IDC1   : 0.000 (A) Sun Feb  7 14:12:13 2021
+[getInverterData]Code: 2l; lre: 3476685760l; cls: 0l
+SPOT_IDC2   : 0.000 (A) Sun Feb  7 14:12:13 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 170 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UDC1   : 378.00 (V) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 2l; lre: 3476685760l; cls: 8l
+SPOT_UDC2   : 241.32 (V) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 8l
+SPOT_IDC1   : 0.000 (A) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 2l; lre: 3476685760l; cls: 8l
+SPOT_IDC2   : 0.000 (A) Sun Feb  7 14:12:11 2021
+SUSyID: 138 - SN: 2130438671
+DC Spot Data:
+	String 1 Pdc:   0.000kW - Udc: 258.98V - Idc:  0.000A
+	String 2 Pdc:   0.000kW - Udc: 175.67V - Idc:  0.000A
+	Calculated Total Pdc:   0.000kW
+SUSyID: 138 - SN: 2130440332
+DC Spot Data:
+	String 1 Pdc:   0.000kW - Udc: 378.00V - Idc:  0.000A
+	String 2 Pdc:   0.000kW - Udc: 241.32V - Idc:  0.000A
+	Calculated Total Pdc:   0.000kW
+getInverterData(8)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 142 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PAC1   : 0 (W) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PAC2   : 0 (W) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PAC3   : 0 (W) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 142 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PAC1   : 0 (W) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PAC2   : 0 (W) Sun Feb  7 14:12:11 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PAC3   : 0 (W) Sun Feb  7 14:12:11 2021
+getInverterData(16)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+MAX_CommBuf is now 226 bytes
+Received 226 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UAC1   : 230.40 (V) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UAC2   : 0.00 (V) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UAC3   : 0.00 (V) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IAC1   : 0.000 (A) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IAC2   : 0.000 (A) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IAC3   : 0.000 (A) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 226 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UAC1   : 230.86 (V) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UAC2   : 0.00 (V) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_UAC3   : 0.00 (V) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IAC1   : 0.000 (A) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IAC2   : 0.000 (A) Sun Feb  7 14:12:12 2021
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_IAC3   : 0.000 (A) Sun Feb  7 14:12:12 2021
+getInverterData(256)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 86 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PACTOT : 0 (W) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 86 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_PACTOT : 0 (W) Sun Feb  7 14:12:12 2021
+SUSyID: 138 - SN: 2130438671
+AC Spot Data:
+	Phase 1 Pac :   0.000kW - Uac: 230.40V - Iac:  0.000A
+	Phase 2 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
+	Phase 3 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
+	Total Pac   :   0.000kW - Calculated Pac:   0.000kW
+	Efficiency  :    0.00%
+SUSyID: 138 - SN: 2130440332
+AC Spot Data:
+	Phase 1 Pac :   0.000kW - Uac: 230.86V - Iac:  0.000A
+	Phase 2 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
+	Phase 3 Pac :   0.000kW - Uac:   0.00V - Iac:  0.000A
+	Total Pac   :   0.000kW - Calculated Pac:   0.000kW
+	Efficiency  :    0.00%
+getInverterData(32)
+ 58 Bytes sent to IP [192.168.1.51]
+ethGetPacket()
+select() returned 1
+Received 86 bytes from IP [192.168.1.51]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130438671
+Inverter[0] 138:2130438671
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_FREQ   : 49.99 (Hz) Sun Feb  7 14:12:12 2021
+ 58 Bytes sent to IP [192.168.1.52]
+ethGetPacket()
+select() returned 1
+Received 86 bytes from IP [192.168.1.52]
+<<<====== Content of pcktBuf =======>>>
+<<<=================================>>>
+getInverterIndexBySerial()
+Looking up 138:2130440332
+Inverter[0] 138:2130438671
+Inverter[1] 138:2130440332
+[getInverterData]Code: 1l; lre: 3476685760l; cls: 0l
+SPOT_FREQ   : 49.99 (Hz) Sun Feb  7 14:12:12 2021
+SUSyID: 138 - SN: 2130438671
+Grid Freq. : 49.99Hz
+SUSyID: 138 - SN: 2130440332
+Grid Freq. : 49.99Hz
+SUSyID: 138 - SN: 2130438671
+SUSyID: 138 - SN: 2130440332
+Connecting to database [localhost:sbflite] with username [SBFliteUser] and password [!sbfpassword123!]
+Successfully connected to database [sbflite]!
+[Inverters] Query: "UPDATE Inverters SET Name='SB 3000TL-21 671',Type='UNKNOWN TYPE',TimeStamp='2021-02-07 14:12:08.527',TotalPac=0,EToday=39,ETotal=8471600,OperatingTime=16503.723333,FeedInTime=15910.776389,Status=307,GridRelay=311,Temperature=26.540001 WHERE Serial=2130438671"
+[Inverters]mysql_real_query() executed successfully.
+[spotData] Query: "INSERT INTO spotData VALUES('SB 3000TL-21 671','UNKNOWN TYPE',2130438671,'2021-02-07 14:12:08.527',39,8471600,59413404,57278795,307,311,26.540000,49.990000,0,0,258.980011,175.669998,0.000000,0.000000,0,0,0,230.399994,0.000000,0.000000,0.000000,0.000000,0.000000)"
+[Inverters]mysql_real_query() executed successfully.
+[Inverters] Query: "UPDATE Inverters SET Name='SB 4000TL-21 332',Type='UNKNOWN TYPE',TimeStamp='2021-02-07 14:12:08.596',TotalPac=0,EToday=55,ETotal=21586288,OperatingTime=16863.972222,FeedInTime=16546.407778,Status=307,GridRelay=311,Temperature=25.700001 WHERE Serial=2130440332"
+[Inverters]mysql_real_query() executed successfully.
+[spotData] Query: "INSERT INTO spotData VALUES('SB 4000TL-21 332','UNKNOWN TYPE',2130440332,'2021-02-07 14:12:08.596',55,21586288,60710300,59567068,307,311,25.700000,49.990000,0,0,378.000000,241.320007,0.000000,0.000000,0,0,0,230.860001,0.000000,0.000000,0.000000,0.000000,0.000000)"
+[Inverters]mysql_real_query() executed successfully.
+Closing connection to database.
+logoffMultigateDevices()
+logoffSMAInverter()
+ 54 Bytes sent to IP [192.168.1.51]
+logoffSMAInverter()
+ 54 Bytes sent to IP [192.168.1.52]
+done.

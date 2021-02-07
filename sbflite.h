@@ -10,6 +10,8 @@
 #define sqlUsername "SBFliteUser"
 #define sqlPassword ""
 #define sqlDatabase "sbflite"
+// Timezone offset relative to UTC
+#define OFFSET +1
 
 #define num_inverters 2
 const int MAX_INVERTERS = 2;
