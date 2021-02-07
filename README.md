@@ -15,7 +15,45 @@ I used SBFspot for a while, which successfully exported the data to my MySQL dat
 * libbluetooth-dev
 * [libmariadbclient](https://downloads.mariadb.org/connector-odbc/) installed as /usr/lib/mariadb/mysql.h
 
-### **Compilation**
+### **Compilation/Installation**
+1. Create a database with two tables "Inverters" and "spotData"
+```sql
+CREATE Table Inverters (
+	Name varchar(32),
+	Type varchar(32),
+   Serial int(4) NOT NULL,
+	TimeStamp timestamp,
+	TotalPac int(4),
+	EToday int(8),
+	ETotal int(8),
+	OperatingTime double,
+	FeedInTime double,
+   Temperature float,
+	Status varchar(10),
+	GridRelay varchar(10),
+);
+CREATE Table SpotData (
+   Name varchar(32),
+	Type varchar(32),
+   Serial int(4) NOT NULL,
+	TimeStamp timestamp,
+   EToday int(8),
+	ETotal int(8),
+   OperatingTime double,
+   FeedInTime double,
+   Status varchar(10),
+   GridRelay varchar(10),
+   Temperature float,
+   GridFreq float,
+	Pdc1 int(4), Pdc2 int(4),
+   Udc1 float, Udc2 float,
+	Idc1 float, Idc2 float,
+	Pac1 int(4), Pac2 int(4), Pac3 int(4),
+	Uac1 float, Uac2 float, Uac3 float,
+   Iac1 float, Iac2 float, Iac3 float,
+);
+```
+
 1. Modify the IP addresses of your SMA® solar/battery inverters and MariaDB username & password inside the sbflite.h file
 
 2. Type `make` to compile the file.
