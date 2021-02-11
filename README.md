@@ -51,6 +51,7 @@ CREATE Table SpotData (
 	Pac1 int(4), Pac2 int(4), Pac3 int(4),
 	Uac1 float, Uac2 float, Uac3 float,
 	Iac1 float, Iac2 float, Iac3 float,
+	calPdcTot float, calPacTot float,
 );
 ```
 
